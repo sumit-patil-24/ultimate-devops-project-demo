@@ -107,7 +107,7 @@ jobs:
                 echo "ERROR: Combined complete-deploy.yaml file was not successfully updated!"
                 exit 1
               fi
-        
+
           - name: Commit and push changes
             run: |
               git config --global user.email "sumit@gmail.com"
@@ -117,8 +117,8 @@ jobs:
               git add kubernetes/productcatalog/deploy.yaml kubernetes/complete-deploy.yaml
           
               git commit -m "[CI]: Update product catalog image tag in single and complete manifests"
-              git push origin HEAD:main
-    
-
-
+              
+              # CHANGE THIS: Push back to the PR's source feature branch instead of main
+              git push origin HEAD:${{ github.head_ref }}
         
+          
