@@ -118,7 +118,11 @@ jobs:
           
               git commit -m "[CI]: Update product catalog image tag in single and complete manifests"
               
-              # CHANGE THIS: Push back to the PR's source feature branch instead of main
-              git push origin HEAD:${{ github.head_ref }}
-        
-          
+              # Automatically finds the current branch name, whether it's a PR or a direct branch push!
+              CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed 's/refs\/pull\///' | sed 's/\/merge//')
+              if [ -n "${{ github.head_ref }}" ]; then
+                CURRENT_BRANCH="${{ github.head_ref }}"
+              fi
+
+              echo "Pushing changes back to branch: $CURRENT_BRANCH"
+              git push origin HEAD:$CURRENT_BRANCH
