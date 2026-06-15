@@ -9,6 +9,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN pip install --no-cache-dir setuptools
+
 RUN opentelemetry-bootstrap -a install 
 
 ENV RECOMMENDATION_PORT 1010
