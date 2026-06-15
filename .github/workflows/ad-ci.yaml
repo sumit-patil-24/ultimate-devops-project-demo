@@ -66,9 +66,14 @@ jobs:
       with:
         token: ${{ secrets.TOKEN }}
 
-    - name: Update tag in kubernetes deployment manifest
+    - name: Update tag in kubernetes deployment manifests
       run: | 
+        # 1. Update individual service manifest safely
         sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/ad:${{ github.run_id }}|" kubernetes/ad/deploy.yaml
+        
+        # 2. Update multi-service manifest loops until it finds 'name: adservice', 
+        # then replaces the very next 'image:' line. This works infinitely!
+        sed -i "/name: adservice/{n;s|image: .*|image: '${{ secrets.DOCKER_USERNAME }}/ad:${{ github.run_id }}'|}" kubernetes/complete-deploy.yaml
     
     - name: Commit and push changes
       run: |
