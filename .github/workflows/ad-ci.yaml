@@ -71,14 +71,14 @@ jobs:
         # 1. Update individual service manifest safely
         sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/ad:${{ github.run_id }}|" kubernetes/ad/deploy.yaml
         
-        # 2. Update multi-service manifest loops until it finds 'name: adservice', 
-        # then replaces the very next 'image:' line. This works infinitely!
-        sed -i "/name: adservice/{n;s|image: .*|image: '${{ secrets.DOCKER_USERNAME }}/ad:${{ github.run_id }}'|}" kubernetes/complete-deploy.yaml
+        # 2. Update shared manifest by targeting the unique default suffix pattern.
+        # This regex matches the 'image:' line and anything ending with '-adservice' (with or without quotes).
+        sed -i "s|image: .*adservice.*|image: '${{ secrets.DOCKER_USERNAME }}/ad:${{ github.run_id }}'|" kubernetes/complete-deploy.yaml
     
     - name: Commit and push changes
       run: |
         git config --global user.email "sumit@gmail.com"
         git config --global user.name "Sumit Patil"
-        git add kubernetes/ad/deploy.yaml
-        git commit -m "[CI]: Update ad image tag"
+        git add kubernetes/ad/deploy.yaml kubernetes/complete-deploy.yaml
+        git commit -m "[CI]: Update ad image tag in individual and complete manifests"
         git push origin HEAD:main
