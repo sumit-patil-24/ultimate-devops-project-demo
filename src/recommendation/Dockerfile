@@ -7,9 +7,9 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY . .
-
 RUN pip install --no-cache-dir setuptools
+
+COPY . .
 
 RUN opentelemetry-bootstrap -a install 
 
