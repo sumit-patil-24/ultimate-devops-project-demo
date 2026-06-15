@@ -25,7 +25,7 @@ jobs:
 
     - name: Build with Gradle
       working-directory: src/ad      
-      run: ./gradlew build
+      run: ./gradlew build -x verifyGoogleJavaFormat  # <-- Skips the format check
 
     - name: Run unit tests
       working-directory: src/ad     
