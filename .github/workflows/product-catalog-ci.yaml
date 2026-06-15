@@ -2,10 +2,12 @@
 
 name: product-catalog-ci
 
-on: 
-    pull_request:
-        branches:
-        - main
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/product-catalog/**'
 
 jobs:
     build:
