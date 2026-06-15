@@ -21,18 +21,14 @@ jobs:
       with:
         java-version: '17' # Adjust to your Java version (e.g., 11, 17, 21)
         distribution: 'temurin'
-        cache: 'maven'
+        cache: 'gradle'
 
-    - name: Build with Maven
-      run: |
-        cd src/ad
-        mvn clean package -DskipTests
+    - name: Build with Gradle
+      run: ./gradlew build
 
     - name: Run unit tests
-      run: |
-        cd src/ad
-        mvn test
-
+      run: ./gradlew test
+      
   docker:
     runs-on: ubuntu-latest
     needs: build
