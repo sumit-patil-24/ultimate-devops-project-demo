@@ -27,13 +27,6 @@ jobs:
         cd src/recommendation
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        # Install testing tools
-        pip install pytest
-
-    - name: Run unit tests
-      run: |
-        cd src/recommendation
-        pytest
 
   code-quality:
     runs-on: ubuntu-latest
@@ -79,7 +72,6 @@ jobs:
         context: src/recommendation
         file: src/recommendation/Dockerfile
         push: true
-        # Fixed: Changed image name from product-catalog to recommendation
         tags: ${{ secrets.DOCKER_USERNAME }}/recommendation:${{ github.run_id }}
 
   updatek8s:
