@@ -646,7 +646,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: checkoutservice
-          image: 'ghcr.io/open-telemetry/demo:1.12.0-checkoutservice'
+          image: 'sumit202/checkout:27531729618'
           imagePullPolicy: IfNotPresent
           ports:
             
