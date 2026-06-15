@@ -5,9 +5,11 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
-RUN pip install --no-cache-dir setuptools
+# FIX: Install an older version of setuptools that still contains pkg_resources
+RUN pip install "setuptools<70.0.0"
+
+RUN pip install -r requirements.txt
 
 COPY . .
 
