@@ -139,7 +139,7 @@ type checkout struct {
 
 func main() {
 	var port string
-	mustMapEnv(&port, "CHECKOUT_PORT")
+	mustMapEnv(&port, "CHECKOUT_SERVICE_PORT")
 
 	tp := initTracerProvider()
 	defer func() {
