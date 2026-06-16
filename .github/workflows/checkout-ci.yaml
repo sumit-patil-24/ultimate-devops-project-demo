@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - 'src/checkout/**'
+  workflow_dispatch:
           
 
 jobs:
