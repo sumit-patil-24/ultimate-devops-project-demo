@@ -97,9 +97,8 @@ jobs:
                # 1. Update individual service manifest safely
                sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/checkout:${{github.run_id}}|" kubernetes/checkout/deploy.yaml
 
-                # 2. Update shared manifest by targeting the unique default suffix pattern.
-                # This regex matches the 'image:' line and anything ending with '-checkoutservice' (with or without quotes).
-                sed -i "s|image: .*checkoutservice.*|image: '${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.run_id }}'|" kubernetes/complete-deploy.yaml
+                # 2. Update shared manifest dynamically by finding the container block first
+                sed -i '/name: checkoutservice/{n;s|image: .*|image: '\''${{ secrets.DOCKER_USERNAME }}/checkout:${{ github.run_id }}'\''|}' kubernetes/complete-deploy.yaml
 
         - name: Commit and push changes
           run: |
