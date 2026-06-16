@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - 'src/product-catalog/**'
+  workflow_dispatch:
 
 jobs:
     build:
