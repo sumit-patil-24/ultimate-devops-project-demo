@@ -646,7 +646,7 @@ spec:
       serviceAccountName: opentelemetry-demo
       containers:
         - name: checkoutservice
-          image: 'sumit202/checkout:27531729618'
+          image: 'sumit202/checkout:27588827295'
           imagePullPolicy: IfNotPresent
           ports:
             
